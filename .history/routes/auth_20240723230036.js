@@ -36,6 +36,11 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ msg: 'Invalid username or password' });
         }
 
+        // const isMatch = password === user.password
+        // console.log(isMatch)
+        // if (!isMatch) {
+        //     return res.status(400).json({ msg: 'Invalid username or password' });
+        // }
 
         const payload = { userId: user._id };
         const token = jwt.sign(payload, 'your_jwt_secret', { expiresIn: '1h' });
@@ -48,23 +53,3 @@ router.post('/login', async (req, res) => {
 });
 
 module.exports = router;
-
-//test 
-/**
- * Case 1: 
- * {
-    "username":{"$ne":""},
-    "password":{"$ne":""}
-    }
- * Case 2: 
- * {
-    "username":"alice'\u0000",
-    "password":""
-    }
-    Case 3: 
- * {
-    "username":"alice",
-    "password":"password123",
-    "$where":"sleep(5000)"
-    }
- */
